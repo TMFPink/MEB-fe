@@ -69,4 +69,8 @@ export class UserService {
   getUserStats(userId: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/stats/${userId}`);
   }
+
+  getInsight(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/insight`);
+  }
 }

@@ -156,5 +156,6 @@ export class RegisterComponent {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    console.log('Register component destroyed');
   }
 }

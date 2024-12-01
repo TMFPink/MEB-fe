@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div class="flex flex-col p-4">
+    <div class="flex flex-col p-10 gap-y-5">
         <div class="flex gap-5 item-center content-center text-2xl">
             <div class="font-bold mb-1 ">Blog title:</div> 
             <h3>{{ report.blogTitle }}</h3>
@@ -66,6 +66,10 @@
         <div class="whitespace-normal break-words w-full" >{{ report.reportResponse.description }}</div>
       </div>
       <div class="flex gap-5 text-2xl">
+        <div class="font-bold">Details: </div>
+        <div class="underline cursor-pointer text-[var(--main-theme)]" [routerLink]="['/blog',report.reportResponse.blogId]">{{report.blogTitle}}</div>
+      </div>
+      <div class="flex gap-5 text-2xl">
         <div class="font-bold">Action: </div>
         <div class="flex gap-5">
             <div
@@ -76,6 +80,7 @@
           >DELETE</div>
         </div>
       </div>
+
   </div>
 </div>
 </div>

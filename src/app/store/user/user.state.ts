@@ -21,6 +21,7 @@ export interface UserStateModel {
   isFollow: boolean;
   isBookmark: boolean;
   updateStatus: boolean;
+  insight: any;
 }
 @State<UserStateModel>({
   name: 'user',
@@ -50,6 +51,7 @@ export interface UserStateModel {
     isFollow: false,
     isBookmark: false,
     updateStatus: false,
+    insight: {},
   },
 })
 @Injectable()
@@ -92,6 +94,11 @@ export class UserState {
   @Selector()
   static isBookmark({ isBookmark }: UserStateModel): boolean {
     return isBookmark;
+  }
+
+  @Selector()
+  static insight({ insight }: UserStateModel): any {
+    return insight;
   }
 
   @Action(UserAction.getMe)
@@ -216,5 +223,14 @@ export class UserState {
           }
         }),
       );
+  }
+
+  @Action(UserAction.userInsight)
+  userInsight(ctx: StateContext<UserStateModel>) {
+    return this.apiService.user.getInsight().pipe(
+      tap((response) => {
+        ctx.patchState({ insight: response.result });
+      }),
+    );
   }
 }

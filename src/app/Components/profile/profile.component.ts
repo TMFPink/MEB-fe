@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   isFollowing: boolean = false;
   followers: number = 0;
   following: number = 0;
+  totalUpvote: number = 0;
   posts: number = 0;
   constructor(
     private _store: Store,
@@ -83,6 +84,7 @@ export class ProfileComponent implements OnInit {
       this.followers = stats.followers;
       this.following = stats.following;
       this.posts = stats.posts;
+      this.totalUpvote = stats.totalUpvote;
     });
     this.isFollow$.subscribe((response) => {
       this.isFollowing = response;

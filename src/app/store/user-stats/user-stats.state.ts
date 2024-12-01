@@ -10,6 +10,7 @@ export interface UserStats {
   followers: number;
   following: number;
   posts: number;
+  totalUpvote: number;
 }
 
 export interface UserStatsStateModel {
@@ -23,6 +24,7 @@ export interface UserStatsStateModel {
       followers: 0,
       following: 0,
       posts: 0,
+      totalUpvote: 0,
     },
   },
 })

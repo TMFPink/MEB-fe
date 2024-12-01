@@ -8,20 +8,35 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Blog } from '../../../store/blog/blog.state';
 import { BlogAction } from '../../../store/blog/blog.action';
+import { UserState } from '../../../store/user/user.state';
+import { UserAction } from '../../../store';
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [BlogCardComponent, BlogPopupComponent, CommonModule, RouterModule],
+  imports: [BlogCardComponent, CommonModule, RouterModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
   headerImage = 'url("/asset/homepage/homepage-bg.png")';
   selectedArticle: any | null = null;
-
+  insight$: Observable<any[]>;
   blog$!: Observable<Blog[]>;
   loading: boolean = true;
-  constructor(private store: Store) {}
+  podium: any[] = [];
+  constructor(private store: Store) {
+    this.insight$ = this.store.select(UserState.insight);
+    this.store.dispatch(new UserAction.userInsight());
+
+    this.insight$.subscribe((insight) => {
+      if (insight) {
+        insight.forEach((response) => {
+          this.podium.push(response.userResponse);
+        });
+        console.log(this.podium);
+      }
+    });
+  }
 
   ngOnInit() {
     this.blog$ = this.store.select(BlogState.blogs);
@@ -30,13 +45,4 @@ export class HomepageComponent implements OnInit {
     });
     this.store.dispatch(new BlogAction.GetBlogs());
   }
-
-  // openPopup(article: any) {
-  //   this.selectedArticle = article;
-  // }
-
-  // closePopup() {
-  //   this.selectedArticle = null;
-  //   this.store.dispatch(new BlogAction.GetBlogs());
-  // }
 }
