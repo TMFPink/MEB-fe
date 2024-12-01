@@ -42,40 +42,40 @@
         class="flex justify-center items-end space-x-20 bg-[var(--main-theme)] rounded-t-xl border border-gray-500"
       >
         <!-- Second place -->
-        <div class="w-48">
-          <p class="text-center text-lg font-semibold mb-16">Username</p>
+        <div class="w-48" *ngIf="podium[1]">
+          <p class="text-center text-lg font-semibold mb-16">{{ podium[1].username }}</p>
           <div
             class="bg-[var(--secondary-theme)] rounded-t-lg h-40 flex items-center justify-center relative"
           >
             <img
-              src="https://via.placeholder.com/80"
-              alt="Username"
+              [src]="podium[1].avatar"
+              alt="{{ podium[1].username }}"
               class="absolute -top-14 rounded-full border-4 border-white w-32 h-32 object-cover"
             />
           </div>
         </div>
         <!-- First place -->
-        <div class="w-48">
-          <p class="text-center text-lg font-semibold mb-16 mt-4">Username</p>
+        <div class="w-48" *ngIf="podium[0]">
+          <p class="text-center text-lg font-semibold mb-16 mt-4">{{ podium[0].username }}</p>
           <div
             class="bg-[var(--side-color)] rounded-t-lg h-56 flex items-center justify-center relative"
           >
             <img
-              src="https://via.placeholder.com/80"
-              alt="Username"
+              [src]="podium[0].avatar"
+              alt="{{ podium[0].username }}"
               class="absolute -top-14 rounded-full border-4 border-white w-32 h-32 object-cover"
             />
           </div>
         </div>
         <!-- Third place -->
-        <div class="w-48">
-          <p class="text-center text-lg font-semibold mb-16">Username</p>
+        <div class="w-48" *ngIf="podium[2]">
+          <p class="text-center text-lg font-semibold mb-16">{{ podium[2].username }}</p>
           <div
             class="bg-[var(--font-color)] rounded-t-lg h-32 flex items-center justify-center relative"
           >
             <img
-              src="https://via.placeholder.com/80"
-              alt="Username"
+              [src]="podium[2].avatar"
+              alt="{{ podium[2].username }}"
               class="absolute -top-14 rounded-full border-4 border-white w-32 h-32 object-cover"
             />
           </div>
@@ -83,73 +83,35 @@
       </div>
 
       <!-- Leaderboard for the rest of the users -->
-      <div class="bg-white p-4 rounded-b-lg border-2 border-gray px-36">
-        <!-- User entry -->
+      <div class="bg-gray-200 p-4 rounded-b-lg border-2 border-gray px-36">
         <div
-          class="flex items-center p-2 bg-[var(--main-theme)] text-white rounded-lg mb-2"
-        >
-          <img
-            src="https://via.placeholder.com/50"
-            alt="Username"
-            class="rounded-full w-10 h-10 border-2 border-cyan-300"
-          />
-          <div class="ml-4">
-            <p class="font-bold">Username</p>
-            <p>⭐⭐⭐⭐⭐</p>
+        class="flex items-center p-2 bg-[var(--main-theme)] text-white rounded-lg mb-2"
+      >
+      <div class="w-10"></div>
+      <div class="ml-4 flex justify-between w-full">
+        <div class="font-bold">Username</div>
+        <div class="font-bold">Score</div>
+      </div>
+        
+    </div>
+        <div *ngFor="let user of (insight$ | async)">
+            <div
+            class="flex items-center p-2 bg-[var(--font-color)] text-white rounded-lg mb-2"
+          >
+            <img
+              [src]="user.userResponse.avatar"
+              alt="Username"
+              class="rounded-full w-10 h-10 border-2 border-cyan-300"
+            />
+            <div class="ml-4 flex justify-between w-full">
+              <div class="font-bold">{{user.userResponse.username}}</div>
+              <div class="font-bold">{{user.score}}</div>
+            </div>
           </div>
         </div>
-        <div
-          class="flex items-center p-2 bg-[var(--main-theme)] text-white rounded-lg mb-2"
-        >
-          <img
-            src="https://via.placeholder.com/50"
-            alt="Username"
-            class="rounded-full w-10 h-10 border-2 border-cyan-300"
-          />
-          <div class="ml-4">
-            <p class="font-bold">Username</p>
-            <p>⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
-        <div
-          class="flex items-center p-2 bg-[var(--main-theme)] text-white rounded-lg mb-2"
-        >
-          <img
-            src="https://via.placeholder.com/50"
-            alt="Username"
-            class="rounded-full w-10 h-10 border-2 border-cyan-300"
-          />
-          <div class="ml-4">
-            <p class="font-bold">Username</p>
-            <p>⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
-        <div
-          class="flex items-center p-2 bg-[var(--main-theme)] text-white rounded-lg mb-2"
-        >
-          <img
-            src="https://via.placeholder.com/50"
-            alt="Username"
-            class="rounded-full w-10 h-10 border-2 border-cyan-300"
-          />
-          <div class="ml-4">
-            <p class="font-bold">Username</p>
-            <p>⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
-        <div
-          class="flex items-center p-2 bg-[var(--main-theme)] text-white rounded-lg mb-2"
-        >
-          <img
-            src="https://via.placeholder.com/50"
-            alt="Username"
-            class="rounded-full w-10 h-10 border-2 border-cyan-300"
-          />
-          <div class="ml-4">
-            <p class="font-bold">Username</p>
-            <p>⭐⭐⭐⭐⭐</p>
-          </div>
-        </div>
+        
+        
+        
       </div>
     </div>
   </div>

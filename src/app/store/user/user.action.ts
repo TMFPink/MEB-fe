@@ -13,6 +13,8 @@ export enum Actions {
 
   CHANGE_PASSWORD = '[User] change password',
   UPDATE_USER = '[User] update user',
+
+  USER_INSIGHT = '[User] user insight',
 }
 export namespace UserAction {
   export class getAllUser {
@@ -64,5 +66,9 @@ export namespace UserAction {
   export class updateUser {
     static type = Actions.UPDATE_USER;
     constructor(public payload: any) {}
+  }
+
+  export class userInsight {
+    static type = Actions.USER_INSIGHT;
   }
 }

@@ -106,6 +106,7 @@ export class AuthState {
     action: AuthAction.RegisterSuccess,
   ) {
     ctx.patchState({ RegisterStatus: true });
+    ctx.patchState({ RegisterStatus: false });
   }
   @Action(AuthAction.RegisterFailed)
   RegisterFailed(
