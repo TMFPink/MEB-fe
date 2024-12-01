@@ -31,16 +31,16 @@ export const errorInterceptor: HttpInterceptorFn = (
         if (body && body.code === 9999) {
           const errorMessage = body.message || 'Unknown error occurred';
           messageService.error(errorMessage);
-        } else if(body && body.code === 401 && !isRefreshing) {
-          isRefreshing = true;
-          store.dispatch(new AuthAction.RefreshToken()).subscribe({
-            complete: () => {
-              isRefreshing = false;
-            },
-            error: () => {
-              isRefreshing = false;
-            }
-          });
+        } else if (body && body.code === 401 && !isRefreshing) {
+          // isRefreshing = true;
+          // store.dispatch(new AuthAction.RefreshToken()).subscribe({
+          //   complete: () => {
+          //     isRefreshing = false;
+          //   },
+          //   error: () => {
+          //     isRefreshing = false;
+          //   }
+          // });
         }
       }
       return event;
