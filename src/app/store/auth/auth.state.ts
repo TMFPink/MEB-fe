@@ -123,14 +123,18 @@ export class AuthState {
   // }
   @Action(AuthAction.Logout)
   logout(ctx: StateContext<AuthStateModel>) {
-    ctx.patchState({
-      token: '',
-      LoginStatus: { status: false, message: '' },
-    });
-    this.cookieService.delete('authToken', '/');
-    this.store.dispatch(new StateResetAll());
-    localStorage.clear();
-    this.router.navigate(['/auth']);
+    return this.apiService.auth.Logout().pipe(
+      tap((res) => {
+        ctx.patchState({
+          token: '',
+          LoginStatus: { status: false, message: '' },
+        });
+        this.cookieService.delete('authToken', '/');
+        this.store.dispatch(new StateResetAll());
+        localStorage.clear();
+        this.router.navigate(['/auth']);
+      }),
+    );
   }
   @Action(AuthAction.RefreshToken)
   RefreshToken(
@@ -146,10 +150,6 @@ export class AuthState {
           ctx.dispatch(new AuthAction.Logout());
           throw Error('Invalid token');
         }
-      }),
-      catchError((_) => {
-        ctx.dispatch(new AuthAction.Logout());
-        return EMPTY;
       }),
     );
   }

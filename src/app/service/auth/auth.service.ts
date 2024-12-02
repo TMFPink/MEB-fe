@@ -29,7 +29,11 @@ export class AuthService {
   }
 
   Register(info: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users`, info, this.httpOptions);
+    return this.http.post(
+      `${this.apiUrl}/auth/register`,
+      info,
+      this.httpOptions,
+    );
   }
 
   RefreshToken(): Observable<any> {
@@ -49,8 +53,8 @@ export class AuthService {
     return this.cookieService.get('authToken');
   }
 
-  // Logout(): Observable<any> {
-  //   this.cookieService.delete('authToken', '/');
-  //   return this.http.post(`${this.apiUrl}/auth/logout`, {}, this.httpOptions);
-  // }
+  Logout(): Observable<any> {
+    this.cookieService.delete('authToken', '/');
+    return this.http.post(`${this.apiUrl}/auth/logout`, {}, this.httpOptions);
+  }
 }

@@ -51,7 +51,7 @@ export class ContentLayoutComponent {
   private destroy$ = new Subject<void>();
 
   navbarItems = [
-    { icon: 'bell', path: '/noti' },
+    { icon: 'bell', path: '' },
     { icon: 'user', path: '/account' },
   ];
 
