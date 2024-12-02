@@ -117,13 +117,6 @@ export class AuthState {
   }
 
   @Action(AuthAction.Logout)
-  Logout(ctx: StateContext<AuthStateModel>) {
-    ctx.patchState({ token: '', LoginStatus: { status: false, message: '' } });
-    return this.apiService.auth.Logout().pipe(
-
-    );
-  }
-  @Action(AuthAction.Logout)
   logout(ctx: StateContext<AuthStateModel>) {
     return this.apiService.auth.Logout().pipe(
       tap((res) => {
