@@ -30,10 +30,10 @@ export class HomepageComponent implements OnInit {
 
     this.insight$.subscribe((insight) => {
       if (insight) {
+        this.podium = [];
         insight.forEach((response) => {
           this.podium.push(response.userResponse);
         });
-        console.log(this.podium);
       }
     });
   }

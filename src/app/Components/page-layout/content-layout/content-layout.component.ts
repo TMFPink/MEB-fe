@@ -51,7 +51,7 @@ export class ContentLayoutComponent {
   private destroy$ = new Subject<void>();
 
   navbarItems = [
-    { icon: 'bell', path: '/noti' },
+    { icon: 'bell', path: '' },
     { icon: 'user', path: '/account' },
   ];
 
@@ -67,7 +67,13 @@ export class ContentLayoutComponent {
     });
 
     this.store.dispatch(new BlogAction.GetBlogs());
-    this.store.dispatch(new UserAction.getMe());
+    if (
+      localStorage.getItem('userId') !== 'undefined' &&
+      localStorage.getItem('userId') !== null
+    ) {
+      this.store.dispatch(new UserAction.getMe());
+    }
+
     const token = this.cookieService.get('authToken');
     if (token) {
       this.userProfile$.subscribe((response) => {

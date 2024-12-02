@@ -49,11 +49,11 @@ export class LoginComponent {
     this.user$ = this._store.select(UserState.userProfile);
     this.status$ = this._store.select(AuthState.LoginStatus);
     this.status$.pipe(takeUntil(this.destroy$)).subscribe((response) => {
-      if (response.status === true) {
+      if (response.status === true && response.message !== 'Unauthenticated') {
         this._msg.success('Login successfully');
         this._router.navigate(['/']);
         this._store.dispatch(new UserAction.getMe());
-      } else {
+      } else if (response.message !== '') {
         this._msg.error(response.message);
       }
     });

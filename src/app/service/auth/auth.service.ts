@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private apiUrl: string;
   private httpOptions = {
-    withCredentials: true
+    withCredentials: true,
   };
   router = inject(Router);
 
@@ -23,19 +23,25 @@ export class AuthService {
   }
 
   Login(info: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/login`, info, { withCredentials: true });
+    return this.http.post(`${this.apiUrl}/auth/login`, info, {
+      withCredentials: true,
+    });
   }
 
   Register(info: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users`, info, this.httpOptions);
+    return this.http.post(
+      `${this.apiUrl}/auth/register`,
+      info,
+      this.httpOptions,
+    );
   }
 
   RefreshToken(): Observable<any> {
     this.cookieService.delete('authToken', '/');
     return this.http.post(
-      `${this.apiUrl}/auth/refresh-token`, 
-      {}, 
-      this.httpOptions
+      `${this.apiUrl}/auth/refresh-token`,
+      {},
+      this.httpOptions,
     );
   }
 
