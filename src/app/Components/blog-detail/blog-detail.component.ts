@@ -103,8 +103,8 @@ export class BlogDetailComponent implements OnInit {
       description: ['', Validators.required],
     });
 
-    this.userId = localStorage.getItem('userId') ?? '';
-    if (this.userId !== '') {
+    this.userId = localStorage.getItem('userId') ?? 'undefined';
+    if (this.userId !== 'undefined') {
       this.isLogin = true;
     }
 

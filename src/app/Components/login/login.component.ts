@@ -53,7 +53,7 @@ export class LoginComponent {
         this._msg.success('Login successfully');
         this._router.navigate(['/']);
         this._store.dispatch(new UserAction.getMe());
-      } else {
+      } else if (response.message !== '') {
         this._msg.error(response.message);
       }
     });

@@ -67,7 +67,10 @@ export class ContentLayoutComponent {
     });
 
     this.store.dispatch(new BlogAction.GetBlogs());
-    this.store.dispatch(new UserAction.getMe());
+    if (localStorage.getItem('userId') !== 'undefined') {
+      this.store.dispatch(new UserAction.getMe());
+    }
+
     const token = this.cookieService.get('authToken');
     if (token) {
       this.userProfile$.subscribe((response) => {

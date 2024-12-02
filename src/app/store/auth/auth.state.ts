@@ -35,7 +35,7 @@ export class AuthState {
     private msg: NzMessageService,
     private store: Store,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
   ) {}
 
   @Selector()
@@ -116,23 +116,21 @@ export class AuthState {
     this.msg.error(action.payload.message);
   }
 
-  @Action(AuthAction.Logout)
-  Logout(ctx: StateContext<AuthStateModel>) {
-    ctx.patchState({ token: '', LoginStatus: { status: false, message: '' } });
-    return this.apiService.auth.Logout().pipe(
-
-    );
-  }
+  // @Action(AuthAction.Logout)
+  // Logout(ctx: StateContext<AuthStateModel>) {
+  //   ctx.patchState({ token: '', LoginStatus: { status: false, message: '' } });
+  //   return this.apiService.auth.Logout().pipe();
+  // }
   @Action(AuthAction.Logout)
   logout(ctx: StateContext<AuthStateModel>) {
-    return this.apiService.auth.Logout().pipe(
-      tap((res) => {
-        ctx.patchState({ token: '', LoginStatus: { status: false, message: '' } });
-        this.store.dispatch(new StateResetAll());
-        localStorage.clear();
-        this.router.navigate(['/auth']);
-      })
-    );
+    ctx.patchState({
+      token: '',
+      LoginStatus: { status: false, message: '' },
+    });
+    this.cookieService.delete('authToken', '/');
+    this.store.dispatch(new StateResetAll());
+    localStorage.clear();
+    this.router.navigate(['/auth']);
   }
   @Action(AuthAction.RefreshToken)
   RefreshToken(
@@ -142,10 +140,8 @@ export class AuthState {
     return this.apiService.auth.RefreshToken().pipe(
       take(1),
       tap((res) => {
-        if(res.code == 200) {
-          ctx.dispatch(
-            new AuthAction.RefreshTokenSuccess(res)
-          );
+        if (res.code == 200) {
+          ctx.dispatch(new AuthAction.RefreshTokenSuccess(res));
         } else {
           ctx.dispatch(new AuthAction.Logout());
           throw Error('Invalid token');
@@ -154,14 +150,14 @@ export class AuthState {
       catchError((_) => {
         ctx.dispatch(new AuthAction.Logout());
         return EMPTY;
-      })
+      }),
     );
   }
 
   @Action(AuthAction.RefreshTokenSuccess)
   refreshTokenSuccess(
     ctx: StateContext<AuthStateModel>,
-    { payload }: AuthAction.RefreshTokenSuccess
+    { payload }: AuthAction.RefreshTokenSuccess,
   ) {
     const token = payload.result;
     this.apiService.auth.setToken(token);
