@@ -67,7 +67,10 @@ export class ContentLayoutComponent {
     });
 
     this.store.dispatch(new BlogAction.GetBlogs());
-    if (localStorage.getItem('userId') !== 'undefined') {
+    if (
+      localStorage.getItem('userId') !== 'undefined' &&
+      localStorage.getItem('userId') !== null
+    ) {
       this.store.dispatch(new UserAction.getMe());
     }
 

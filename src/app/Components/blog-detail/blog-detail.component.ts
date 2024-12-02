@@ -146,7 +146,7 @@ export class BlogDetailComponent implements OnInit {
       }
 
       if (this.isLogin) {
-        if (this.userId !== '' && this.blogId !== '') {
+        if (this.userId !== 'undefiend' && this.blogId !== '') {
           this.store.dispatch(new UserAction.isFollow(this.userBlogid));
           this.store.dispatch(new UserAction.isBookmark(this.blogId));
           this.store.dispatch(new BlogAction.GetVoteByBlog(this.blogId));
