@@ -1,5 +1,5 @@
 export const environment = {
-    localURL: 'http://localhost:4200',
+    localURL: 'https://meb.datdang.io.vn',
     apiUrl: 'https://www.yourrlove.com',
     // devURL: 'http://localhost:4200',
     production: true,
