@@ -147,7 +147,7 @@ export class CreateBlogComponent implements OnInit {
       'alignment',
     ],
     simpleUpload: {
-      uploadUrl: `${this.apiUrl}/blogs/images/upload`, // Backend endpoint to handle image uploads
+      uploadUrl: `https://www.yourrlove.com/blogs/images/upload`, // Backend endpoint to handle image uploads
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -172,7 +172,7 @@ export class CreateBlogComponent implements OnInit {
       content: ['', Validators.required],
       tags: [[], Validators.required],
       category: [[''], Validators.required],
-      file: [null, Validators.required],
+      file: [null],
     });
 
     this.tagForm = this.fb.group({
