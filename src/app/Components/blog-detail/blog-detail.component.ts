@@ -147,9 +147,9 @@ export class BlogDetailComponent implements OnInit {
 
       if (this.isLogin) {
         if (this.userId !== '' && this.blogId !== '') {
-          this.store.dispatch(new UserAction.isFollow(this.userBlogid));
-          this.store.dispatch(new UserAction.isBookmark(this.blogId));
-          this.store.dispatch(new BlogAction.GetVoteByBlog(this.blogId));
+          // this.store.dispatch(new UserAction.isFollow(this.userBlogid));
+          // this.store.dispatch(new UserAction.isBookmark(this.blogId));
+          // this.store.dispatch(new BlogAction.GetVoteByBlog(this.blogId));
           if (this.userBlogid === localStorage.getItem('userId')) {
             this.isSelf = true;
           } else {
@@ -157,8 +157,8 @@ export class BlogDetailComponent implements OnInit {
           }
         }
       }
-      if (this.blogId)
-        this.store.dispatch(new CommentsAction.GetComment(this.blogId));
+      // if (this.blogId)
+      //   this.store.dispatch(new CommentsAction.GetComment(this.blogId));
     });
     this.isFollow$.subscribe((response) => {
       this.isFollowing = response;
@@ -166,9 +166,9 @@ export class BlogDetailComponent implements OnInit {
     this.isBookmark$.subscribe((response) => {
       this.isBookmarked = response;
     });
-    this.comments$.subscribe((response) => {
-      this.comments = response;
-    });
+    // this.comments$.subscribe((response) => {
+    //   this.comments = response;
+    // });
     this.voteStatus$.subscribe((response) => {
       if (response) {
         this.currentVoteType = response;
