@@ -118,47 +118,52 @@ export class AuthState {
 
   @Action(AuthAction.Logout)
   logout(ctx: StateContext<AuthStateModel>) {
-    return this.apiService.auth.Logout().pipe(
-      tap((res) => {
-        ctx.patchState({
-          token: '',
-          LoginStatus: { status: false, message: '' },
-        });
-        this.cookieService.delete('authToken', '/');
-        this.store.dispatch(new StateResetAll());
-        localStorage.clear();
-        this.router.navigate(['/auth']);
-      }),
-    );
-  }
-  @Action(AuthAction.RefreshToken)
-  RefreshToken(
-    ctx: StateContext<AuthStateModel>,
-    action: AuthAction.RefreshToken,
-  ) {
-    return this.apiService.auth.RefreshToken().pipe(
-      take(1),
-      tap((res) => {
-        if (res.code == 200) {
-          ctx.dispatch(new AuthAction.RefreshTokenSuccess(res));
-        } else {
-          ctx.dispatch(new AuthAction.Logout());
-          throw Error('Invalid token');
-        }
-      }),
-    );
-  }
-
-  @Action(AuthAction.RefreshTokenSuccess)
-  refreshTokenSuccess(
-    ctx: StateContext<AuthStateModel>,
-    { payload }: AuthAction.RefreshTokenSuccess,
-  ) {
-    const token = payload.result;
-    this.apiService.auth.setToken(token);
+    this.cookieService.delete('authToken', '/');
+    this.store.dispatch(new StateResetAll());
+    localStorage.clear();
+    this.router.navigate(['/auth']);
     ctx.patchState({
-      token: token,
-      LoginStatus: { status: true, message: '' },
+      token: '',
+      LoginStatus: { status: false, message: '' },
     });
+    // return this.apiService.auth.Logout().pipe(
+    //   tap((res) => {
+    //     ctx.patchState({
+    //       token: '',
+    //       LoginStatus: { status: false, message: '' },
+    //     });
+
+    //   }),
+    // );
   }
+  // @Action(AuthAction.RefreshToken)
+  // RefreshToken(
+  //   ctx: StateContext<AuthStateModel>,
+  //   action: AuthAction.RefreshToken,
+  // ) {
+  //   return this.apiService.auth.RefreshToken().pipe(
+  //     take(1),
+  //     tap((res) => {
+  //       if (res.code == 200) {
+  //         ctx.dispatch(new AuthAction.RefreshTokenSuccess(res));
+  //       } else {
+  //         ctx.dispatch(new AuthAction.Logout());
+  //         throw Error('Invalid token');
+  //       }
+  //     }),
+  //   );
+  // }
+
+  // @Action(AuthAction.RefreshTokenSuccess)
+  // refreshTokenSuccess(
+  //   ctx: StateContext<AuthStateModel>,
+  //   { payload }: AuthAction.RefreshTokenSuccess,
+  // ) {
+  //   const token = payload.result;
+  //   this.apiService.auth.setToken(token);
+  //   ctx.patchState({
+  //     token: token,
+  //     LoginStatus: { status: true, message: '' },
+  //   });
+  // }
 }

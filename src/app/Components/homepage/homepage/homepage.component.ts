@@ -20,22 +20,21 @@ import { UserAction } from '../../../store';
 export class HomepageComponent implements OnInit {
   headerImage = 'url("/asset/homepage/homepage-bg.png")';
   selectedArticle: any | null = null;
-  insight$: Observable<any[]>;
+  // insight$: Observable<any[]>;
   blog$!: Observable<Blog[]>;
   loading: boolean = true;
   podium: any[] = [];
   constructor(private store: Store) {
-    this.insight$ = this.store.select(UserState.insight);
-    this.store.dispatch(new UserAction.userInsight());
-
-    this.insight$.subscribe((insight) => {
-      if (insight) {
-        this.podium = [];
-        insight.forEach((response) => {
-          this.podium.push(response.userResponse);
-        });
-      }
-    });
+    // this.insight$ = this.store.select(UserState.insight);
+    // this.store.dispatch(new UserAction.userInsight());
+    // this.insight$.subscribe((insight) => {
+    //   if (insight) {
+    //     this.podium = [];
+    //     insight.forEach((response) => {
+    //       this.podium.push(response.userResponse);
+    //     });
+    //   }
+    // });
   }
 
   ngOnInit() {

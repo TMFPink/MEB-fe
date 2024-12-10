@@ -29,21 +29,25 @@ export class AuthService {
   }
 
   Register(info: any): Observable<any> {
-    return this.http.post(
-      `${this.apiUrl}/auth/register`,
-      info,
-      this.httpOptions,
-    );
+    return this.http.post(`${this.apiUrl}/users`, info, this.httpOptions);
   }
 
-  RefreshToken(): Observable<any> {
-    this.cookieService.delete('authToken', '/');
-    return this.http.post(
-      `${this.apiUrl}/auth/refresh-token`,
-      {},
-      this.httpOptions,
-    );
-  }
+  // Register(info: any): Observable<any> {
+  //   return this.http.post(
+  //     `${this.apiUrl}/auth/register`,
+  //     info,
+  //     this.httpOptions,
+  //   );
+  // }
+
+  // RefreshToken(): Observable<any> {
+  //   this.cookieService.delete('authToken', '/');
+  //   return this.http.post(
+  //     `${this.apiUrl}/auth/refresh-token`,
+  //     {},
+  //     this.httpOptions,
+  //   );
+  // }
 
   setToken(token: string) {
     this.cookieService.set('authToken', token, 7, '/', '', true, 'Strict');
@@ -53,8 +57,8 @@ export class AuthService {
     return this.cookieService.get('authToken');
   }
 
-  Logout(): Observable<any> {
-    this.cookieService.delete('authToken', '/');
-    return this.http.post(`${this.apiUrl}/auth/logout`, {}, this.httpOptions);
-  }
+  // Logout(): Observable<any> {
+  //   this.cookieService.delete('authToken', '/');
+  //   return this.http.post(`${this.apiUrl}/auth/logout`, {}, this.httpOptions);
+  // }
 }

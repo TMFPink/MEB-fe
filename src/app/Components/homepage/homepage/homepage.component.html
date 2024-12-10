@@ -33,15 +33,15 @@
       </div>
     </section>
 
-    <div class="mx-10 mt-8">
-      <!-- Title -->
+    <!-- <div class="mx-10 mt-8">
+      
       <h1 class="text-3xl font-bold text-center mb-10">WEEKLY LEADERBOARD</h1>
 
-      <!-- Podium for top 3 users -->
+      
       <div
         class="flex justify-center items-end space-x-20 bg-[var(--main-theme)] rounded-t-xl border border-gray-500"
       >
-        <!-- Second place -->
+      
         <div class="w-48" *ngIf="podium[1]">
           <p class="text-center text-lg font-semibold mb-16">{{ podium[1].username }}</p>
           <div
@@ -54,7 +54,7 @@
             />
           </div>
         </div>
-        <!-- First place -->
+        
         <div class="w-48" *ngIf="podium[0]">
           <p class="text-center text-lg font-semibold mb-16 mt-4">{{ podium[0].username }}</p>
           <div
@@ -67,7 +67,7 @@
             />
           </div>
         </div>
-        <!-- Third place -->
+        
         <div class="w-48" *ngIf="podium[2]">
           <p class="text-center text-lg font-semibold mb-16">{{ podium[2].username }}</p>
           <div
@@ -82,7 +82,7 @@
         </div>
       </div>
 
-      <!-- Leaderboard for the rest of the users -->
+      
       <div class="bg-gray-200 p-4 rounded-b-lg border-2 border-gray px-36">
         <div
         class="flex items-center p-2 bg-[var(--main-theme)] text-white rounded-lg mb-2"
@@ -113,6 +113,6 @@
         
         
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
