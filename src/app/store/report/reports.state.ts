@@ -65,4 +65,24 @@ export class ReportState {
       )
       .subscribe();
   }
+  @Action(ReportAction.UpdateReport)
+  updateReport(
+    ctx: StateContext<reportStateModel>,
+    payload: ReportAction.UpdateReport,
+  ) {
+    let reportId = payload.reportId;
+    let status = payload.reportStatus;
+    this.apiService.reports
+      .updateReport(reportId, status)
+      .pipe(
+        tap((response) => {
+          if (response.code !== 200) {
+            return this.message.error(response.error);
+          }
+          this.message.success('Report updated');
+          return ctx.patchState({ reports: response.result, status: true });
+        }),
+      )
+      .subscribe();
+  }
 }

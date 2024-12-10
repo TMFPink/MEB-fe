@@ -11,12 +11,14 @@ export interface User {
   avatar: string;
   bio: string;
   nameTag: string;
+  roles?: string[];
 }
 
 export interface UserStateModel {
   user: User;
   userProfile: User;
   userBlog: User;
+  currentRole: any;
   status: boolean;
   isFollow: boolean;
   isBookmark: boolean;
@@ -32,6 +34,7 @@ export interface UserStateModel {
       avatar: '',
       bio: '',
       nameTag: '',
+      roles: [],
     },
     userProfile: {
       id: '',
@@ -47,6 +50,7 @@ export interface UserStateModel {
       bio: '',
       nameTag: '',
     },
+    currentRole: '',
     status: false,
     isFollow: false,
     isBookmark: false,
@@ -101,12 +105,18 @@ export class UserState {
     return insight;
   }
 
+  @Selector()
+  static currentRole({ currentRole }: UserStateModel): any {
+    return currentRole;
+  }
+
   @Action(UserAction.getMe)
   getMe(ctx: StateContext<UserStateModel>) {
     return this.apiService.user.getMe().pipe(
       tap((response) => {
         const user = response.result;
         ctx.patchState({ user: user });
+        ctx.patchState({ currentRole: user.roles[0] });
       }),
     );
   }

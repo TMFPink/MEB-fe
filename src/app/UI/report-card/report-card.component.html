@@ -69,14 +69,16 @@
         <div class="font-bold">Details: </div>
         <div class="underline cursor-pointer text-[var(--main-theme)]" [routerLink]="['/blog',report.reportResponse.blogId]">{{report.blogTitle}}</div>
       </div>
-      <div class="flex gap-5 text-2xl">
+      <div class="flex gap-5 text-2xl" *ngIf="reportAction">
         <div class="font-bold">Action: </div>
         <div class="flex gap-5">
             <div
             class="text-xl font-bold py-1 px-2 rounded-lg text-white bg-gray-600 cursor-pointer"
+            (click)="handleReportAction(report.reportResponse.id,'CANCEL')"
           >CANCEL</div>
           <div
             class="text-xl font-bold py-1 px-2 rounded-lg text-white bg-red-500 cursor-pointer"
+            (click)="handleReportAction(report.reportResponse.id,'DELETE')"
           >DELETE</div>
         </div>
       </div>

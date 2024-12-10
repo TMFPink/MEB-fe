@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { ReportAction } from '../../store/report/reports.action';
 
 @Component({
   selector: 'app-report-card',
@@ -10,13 +12,24 @@ import { RouterLink } from '@angular/router';
   styleUrl: './report-card.component.scss',
 })
 export class ReportCardComponent {
+  constructor(private store: Store) {}
   @Input() report: any;
-  isPopupVisible: boolean = false; // Add this line
+  @Input() reportAction: boolean = false;
+  @Output() onReportAction = new EventEmitter<{
+    reportId: any;
+    action: string;
+  }>();
+  isPopupVisible: boolean = false;
 
   openPopup() {
     this.isPopupVisible = true;
   }
   closePopup() {
     this.isPopupVisible = false;
+  }
+
+  handleReportAction(reportId: any, action: string) {
+    this.onReportAction.emit({ reportId, action });
+    this.closePopup();
   }
 }

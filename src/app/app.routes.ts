@@ -16,7 +16,7 @@ import { SettingSecurityComponent } from './Components/setting/setting-security/
 import { TagsState } from './store/tags/tags.state';
 import { AuthState } from './store/auth/auth.state';
 import { UserState } from './store/user/user.state';
-import { authGuard, unAuthGuard } from './guard/auth.guard';
+import { adminGuard, authGuard, unAuthGuard } from './guard/auth.guard';
 import { BlogDetailComponent } from './Components/blog-detail/blog-detail.component';
 import { AdminManagementComponent } from './Components/admin-management/admin-management.component';
 import { UserIdMatchResolver } from './resolver/matchId.resolver';
@@ -66,6 +66,7 @@ export const routes: Routes = [
       },
       {
         path: 'admin-management',
+        canActivate: [adminGuard],
         component: AdminManagementComponent,
       },
       {
