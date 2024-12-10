@@ -66,7 +66,7 @@ export const routes: Routes = [
       },
       {
         path: 'admin-management',
-        canActivate: [adminGuard],
+        // canActivate: [adminGuard],
         component: AdminManagementComponent,
       },
       {
