@@ -66,14 +66,14 @@
                     </div>
                   </div>
                 </li>
-                <ng-container *ngIf="currentRole">
+                <!-- <ng-container *ngIf="currentRole">
                 
-                </ng-container>
+                </ng-container> -->
                 <li
                   nz-menu-item
                   class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
                   routerLink="/profile"
-                  *ngIf="!currentRole"
+                  *ngIf="currentRole ==='user'"
                 >
                   <span
                     nz-icon
@@ -83,7 +83,7 @@
                   ></span>
                   Profile
                 </li>
-                <ng-container *ngIf="currentRole">
+                <ng-container *ngIf="currentRole ==='admin'">
                   <li
                   nz-menu-item
                   class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
@@ -93,7 +93,7 @@
                   Admin
                 </li>
                 </ng-container>
-                <ng-container *ngIf="!currentRole">
+                <ng-container *ngIf="currentRole ==='user'">
                   <li
                   nz-menu-item
                   class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
@@ -107,8 +107,7 @@
                   ></span>
                   Bookmark
                 </li>
-                </ng-container>
-
+              </ng-container>
                 <!-- <li
                   nz-menu-item
                   class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
@@ -126,7 +125,7 @@
                   nz-menu-item
                   class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
                   routerLink="/setting"
-                  *ngIf="!currentRole"
+                  *ngIf="currentRole ==='user'"
                 >
                   <span
                     nz-icon
