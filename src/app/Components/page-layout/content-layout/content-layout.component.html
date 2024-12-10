@@ -42,6 +42,7 @@
               ></span>
             </div>
             <nz-dropdown-menu #menu>
+
               <ul
                 class="text-[--font-color] text-xl bg-[--side-color] p-4 rounded-xl shadow-lg w-52"
               >
@@ -65,10 +66,14 @@
                     </div>
                   </div>
                 </li>
+                <ng-container *ngIf="currentRole">
+                
+                </ng-container>
                 <li
                   nz-menu-item
                   class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
                   routerLink="/profile"
+                  *ngIf="!currentRole"
                 >
                   <span
                     nz-icon
@@ -78,7 +83,18 @@
                   ></span>
                   Profile
                 </li>
-                <li
+                <ng-container *ngIf="currentRole">
+                  <li
+                  nz-menu-item
+                  class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
+                  routerLink="/admin-management"
+                >
+                <span nz-icon nzType="security-scan" nzTheme="outline" class="mr-3"></span>
+                  Admin
+                </li>
+                </ng-container>
+                <ng-container *ngIf="!currentRole">
+                  <li
                   nz-menu-item
                   class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
                   routerLink="/blog/bookmark"
@@ -91,7 +107,9 @@
                   ></span>
                   Bookmark
                 </li>
-                <li
+                </ng-container>
+
+                <!-- <li
                   nz-menu-item
                   class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
                   routerLink="/codespace"
@@ -103,11 +121,12 @@
                     class="mr-3"
                   ></span>
                   Codespace
-                </li>
+                </li> -->
                 <li
                   nz-menu-item
                   class="flex text-lg items-center py-2 hover:text-white hover:bg-[var(--main-theme)] rounded-lg font-bold"
                   routerLink="/setting"
+                  *ngIf="!currentRole"
                 >
                   <span
                     nz-icon
