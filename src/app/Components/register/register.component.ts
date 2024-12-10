@@ -136,7 +136,7 @@ export class RegisterComponent {
         let user = {
           username: this.registerForm.get('username')?.value,
           email: this.registerForm.get('email')?.value,
-          password: this.registerForm.get('password')?.value,
+          hashPassword: this.registerForm.get('password')?.value,
           nameTag: this.registerForm.get('username')?.value,
         };
         let userPayload = new Blob([JSON.stringify(user)], {
