@@ -45,8 +45,10 @@ export class BlogCardComponent implements OnInit {
       this.UserID = this.article.user.id;
     }
     this.tags = this.article.tags;
-    this.upvotes = this.article.votes.upVote;
-    this.downvotes = this.article.votes.downVote;
+    // this.upvotes = this.article.votes.upVote ?? 0;
+    // this.downvotes = this.article.votes.downVote ?? 0;
+    this.upvotes = 0;
+    this.downvotes = 0;
   }
 
   get cardBackground(): string {

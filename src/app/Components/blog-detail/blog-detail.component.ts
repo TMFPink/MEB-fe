@@ -135,8 +135,10 @@ export class BlogDetailComponent implements OnInit {
       this.sanitizedContent = this.sanitizeContent(String(this.blogContent));
       this.blogDate = this.formatDate.convertDate(String(response?.createdAt));
       this.blogTags = response?.tags ?? [];
-      this.upVotes = response?.votes?.upVote ?? 0;
-      this.downVotes = response?.votes?.downVote ?? 0;
+      // this.upVotes = response?.votes?.upVote ?? 0;
+      // this.downVotes = response?.votes?.downVote ?? 0;
+      this.upVotes = 0;
+      this.downVotes = 0;
       if (this.userNameTag) {
         const payload = {
           nameTag: this.userNameTag,

@@ -22,7 +22,7 @@ export interface Blog {
   createdAt: Date;
   category: Category;
   user?: User;
-  votes: Votes;
+  // votes?: Votes;
 }
 
 export interface Status {
@@ -93,7 +93,7 @@ export class BlogState {
       .getBlogs()
       .pipe(
         tap((response: any) => {
-          if(response.code != 200) {
+          if (response.code != 200) {
             return;
           }
           const blogs: Blog[] = response.result;
@@ -184,7 +184,7 @@ export class BlogState {
                 id: response.result.id,
                 username: response.result.username,
               },
-              votes: blog.votes,
+              // votes: blog.votes,
             })),
           });
         }),
