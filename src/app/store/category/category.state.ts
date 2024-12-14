@@ -49,7 +49,7 @@ export class CategoryState {
       .getCategories()
       .pipe(
         tap((response: any) => {
-          if(response.code != 200) {
+          if (response.code != 200) {
             return;
           }
           const categories: Category[] = response.result;
@@ -70,6 +70,27 @@ export class CategoryState {
         tap((response: any) => {
           const blogByCategory: Blog[] = response.result.blogs;
           ctx.patchState({ blogByCategory, status: false });
+        }),
+      )
+      .subscribe();
+  }
+  @Action(CategorysAction.CreateCategory)
+  createCategory(
+    ctx: StateContext<CategoryStateModel>,
+    action: CategorysAction.CreateCategory,
+  ) {
+    this.apiService.category
+      .createCategory(action.payload)
+      .pipe(
+        tap((response: any) => {
+          if (response.code != 200) {
+            return;
+          }
+          ctx.dispatch(new CategorysAction.GetCategory());
+          ctx.patchState({ status: true });
+        }),
+        catchError((error) => {
+          return throwError(error);
         }),
       )
       .subscribe();

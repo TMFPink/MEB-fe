@@ -14,7 +14,7 @@ import { ReportCardComponent } from '../../UI/report-card/report-card.component'
   selector: 'app-admin-management',
   standalone: true,
   imports: [CommonModule, ReportCardComponent],
-  templateUrl: './admin-management.component.html',
+  templateUrl: './report-blog.component.html',
   styleUrl: './admin-management.component.scss',
 })
 export class AdminManagementComponent {

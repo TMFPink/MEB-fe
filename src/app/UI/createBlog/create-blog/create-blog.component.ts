@@ -125,7 +125,7 @@ export class CreateBlogComponent implements OnInit {
       Image,
       ImageInsert,
       ImageUpload,
-      SimpleUploadAdapter
+      SimpleUploadAdapter,
     ],
     toolbar: [
       'fontSize',
@@ -151,7 +151,7 @@ export class CreateBlogComponent implements OnInit {
       withCredentials: true,
       headers: {
         Authorization: `Bearer ${this.token}`,
-      }
+      },
     },
     mediaEmbed: {
       previewsInData: true,
@@ -197,8 +197,6 @@ export class CreateBlogComponent implements OnInit {
     });
     this.tagStatus$.pipe(takeUntil(this.destroy$)).subscribe((response) => {
       if (response === true) {
-        this.msg.success('Tag created successfully');
-        this.tagForm.reset();
         this.store.dispatch(new TagsAction.GetTags());
       }
     });
@@ -297,7 +295,7 @@ export class CreateBlogComponent implements OnInit {
     const editorData = event.editor.getData();
     console.log('Editor content:', editorData);
   }
-  
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

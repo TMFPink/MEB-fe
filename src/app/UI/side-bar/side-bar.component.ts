@@ -27,18 +27,18 @@ export class SideBarComponent {
     this.categories$ = this.store.select(CategoryState.categories);
     this.store.dispatch(new CategorysAction.GetCategory());
   }
-  groups = [
-    {
-      name: 'Group 1',
-    },
-    {
-      name: 'Group 2',
-    },
-    {
-      name: 'Group 3',
-    },
-    {
-      name: 'Group 4',
-    },
-  ];
+  // groups = [
+  //   {
+  //     name: 'Group 1',
+  //   },
+  //   {
+  //     name: 'Group 2',
+  //   },
+  //   {
+  //     name: 'Group 3',
+  //   },
+  //   {
+  //     name: 'Group 4',
+  //   },
+  // ];
 }

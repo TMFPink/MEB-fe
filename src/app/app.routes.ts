@@ -18,7 +18,7 @@ import { AuthState } from './store/auth/auth.state';
 import { UserState } from './store/user/user.state';
 import { adminGuard, authGuard, unAuthGuard } from './guard/auth.guard';
 import { BlogDetailComponent } from './Components/blog-detail/blog-detail.component';
-import { AdminManagementComponent } from './Components/admin-management/admin-management.component';
+import { AdminManagementComponent } from './Components/report-blog/report-blog.component';
 import { UserIdMatchResolver } from './resolver/matchId.resolver';
 import { CategoryState } from './store/category/category.state';
 import { CodeSpaceComponent } from './Components/code-space/code-space.component';
@@ -28,6 +28,9 @@ import { CommentsState } from './store/comments/comments.state';
 import { UserStatsState } from './store';
 import { ReportState } from './store/report/reports.state';
 import { errorInterceptor } from './interceptors/error.interceptor';
+import { AdminLayoutComponent } from './Components/admin-layout/admin-layout.component';
+import { ReportUserComponent } from './Components/report-user/report-user.component';
+import { ContentManagementComponent } from './Components/content-management/content-management.component';
 
 export const routes: Routes = [
   {
@@ -66,8 +69,27 @@ export const routes: Routes = [
       },
       {
         path: 'admin-management',
-        canActivate: [adminGuard],
-        component: AdminManagementComponent,
+        canActivateChild: [adminGuard],
+        component: AdminLayoutComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'report-blog',
+            pathMatch: 'full',
+          },
+          {
+            path: 'report-blog',
+            component: AdminManagementComponent,
+          },
+          {
+            path: 'report-user',
+            component: ReportUserComponent,
+          },
+          {
+            path: 'content-management',
+            component: ContentManagementComponent,
+          },
+        ],
       },
       {
         path: 'blog',
