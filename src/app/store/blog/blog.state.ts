@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 import { catchError, tap, throwError } from 'rxjs';
 import { User, UserStateModel } from '../user/user.state';
 import { Category } from '../category/category.state';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { UserStatsAction } from '../user-stats';
 
 export interface Votes {
   upVote: number;
@@ -58,6 +60,7 @@ export class BlogState {
   constructor(
     private apiService: ApiService,
     private store: Store,
+    private msg: NzMessageService,
   ) {}
 
   @Selector()
@@ -93,7 +96,7 @@ export class BlogState {
       .getBlogs()
       .pipe(
         tap((response: any) => {
-          if(response.code != 200) {
+          if (response.code != 200) {
             return;
           }
           const blogs: Blog[] = response.result;
@@ -140,6 +143,26 @@ export class BlogState {
         }),
         catchError((error) => {
           return throwError(error);
+        }),
+      )
+      .subscribe();
+  }
+
+  @Action(BlogAction.DeleteBlog)
+  deleteBlog(ctx: StateContext<BlogStateModel>, action: BlogAction.DeleteBlog) {
+    return this.apiService.blog
+      .deleteBlog(action.blogId)
+      .pipe(
+        tap((response) => {
+          if (response.code === 200) {
+            this.msg.success('Blog deleted');
+            this.store.dispatch(new BlogAction.GetBlogByUser(action.userId));
+            this.store.dispatch(
+              new UserStatsAction.getUserStats(action.userId),
+            );
+          } else {
+            this.msg.error('Delete failed');
+          }
         }),
       )
       .subscribe();

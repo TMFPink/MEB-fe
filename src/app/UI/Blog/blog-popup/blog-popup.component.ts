@@ -9,6 +9,8 @@ import { BlogDetailComponent } from '../../../Components/blog-detail/blog-detail
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { Blog } from '../../../store/blog/blog.state';
 import { CreateBlogComponent } from '../../createBlog/create-blog/create-blog.component';
+import { Store } from '@ngxs/store';
+import { BlogAction } from '../../../store/blog/blog.action';
 
 @Component({
   selector: 'app-blog-popup',
@@ -56,6 +58,7 @@ export class BlogPopupComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     private msg: NzMessageService,
+    private store: Store,
   ) {}
   ngOnInit() {
     this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(
@@ -85,5 +88,11 @@ export class BlogPopupComponent implements OnInit {
 
   onEdit() {
     this.isVisible = true;
+  }
+  onDelete() {
+    this.store.dispatch(
+      new BlogAction.DeleteBlog(this.article.id, this.article.user.id),
+    );
+    this.isVisible = false;
   }
 }

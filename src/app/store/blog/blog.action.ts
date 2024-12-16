@@ -2,6 +2,7 @@ export enum Actions {
   GET_BLOGS = '[Blog] get all blog',
   CREATE_BLOG = '[Blog] create blog',
   UPDATE_BLOG = '[Blog] update blog',
+  DELETE_BLOG = '[Blog] delete blog',
   GET_BLOG_BY_ID = '[Blog] get blog by id',
   GET_BLOG_BY_USER = '[Blog] get blog by user',
   GET_BLOG_BY_USER_BOOKMARK = '[Blog] get blog by user bookmark',
@@ -23,6 +24,13 @@ export namespace BlogAction {
     constructor(
       public id: any,
       public payload: any,
+    ) {}
+  }
+  export class DeleteBlog {
+    static type = Actions.DELETE_BLOG;
+    constructor(
+      public blogId: any,
+      public userId: any,
     ) {}
   }
   export class GetBlogById {
