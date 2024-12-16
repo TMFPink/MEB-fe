@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class CategoriesService {
   private apiUrl: string;
   private httpOptions = {
-    withCredentials: true
+    withCredentials: true,
   };
 
   constructor(
@@ -22,8 +22,10 @@ export class CategoriesService {
     return this.http.get(this.apiUrl, this.httpOptions);
   }
 
-  createCategory(tags: any): Observable<any> {
-    return this.http.post(this.apiUrl, tags, this.httpOptions);
+  createCategory(cate: any): Observable<any> {
+    console.log(cate);
+
+    return this.http.post(this.apiUrl, cate, this.httpOptions);
   }
 
   getBlogbyCategory(id: any): Observable<any> {

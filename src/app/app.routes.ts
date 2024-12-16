@@ -16,9 +16,9 @@ import { SettingSecurityComponent } from './Components/setting/setting-security/
 import { TagsState } from './store/tags/tags.state';
 import { AuthState } from './store/auth/auth.state';
 import { UserState } from './store/user/user.state';
-import { authGuard, unAuthGuard } from './guard/auth.guard';
+import { adminGuard, authGuard, unAuthGuard } from './guard/auth.guard';
 import { BlogDetailComponent } from './Components/blog-detail/blog-detail.component';
-import { AdminManagementComponent } from './Components/admin-management/admin-management.component';
+
 import { UserIdMatchResolver } from './resolver/matchId.resolver';
 import { CategoryState } from './store/category/category.state';
 import { CodeSpaceComponent } from './Components/code-space/code-space.component';
@@ -28,6 +28,10 @@ import { CommentsState } from './store/comments/comments.state';
 import { UserStatsState } from './store';
 import { ReportState } from './store/report/reports.state';
 import { errorInterceptor } from './interceptors/error.interceptor';
+import { AdminLayoutComponent } from './Components/admin-layout/admin-layout.component';
+import { ReportUserComponent } from './Components/report-user/report-user.component';
+import { ContentManagementComponent } from './Components/content-management/content-management.component';
+import { AdminReportBlogComponent } from './Components/admin-report-blog/admin-report-blog.component';
 
 export const routes: Routes = [
   {
@@ -66,7 +70,27 @@ export const routes: Routes = [
       },
       {
         path: 'admin-management',
-        component: AdminManagementComponent,
+        canActivateChild: [adminGuard],
+        component: AdminLayoutComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'report-blog',
+            pathMatch: 'full',
+          },
+          {
+            path: 'report-blog',
+            component: AdminReportBlogComponent,
+          },
+          {
+            path: 'report-user',
+            component: ReportUserComponent,
+          },
+          {
+            path: 'content-management',
+            component: ContentManagementComponent,
+          },
+        ],
       },
       {
         path: 'blog',

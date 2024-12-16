@@ -48,10 +48,11 @@ export class ContentLayoutComponent {
   userAvt: string | null = null;
   userNameTag: string | null = null;
   userProfile$: Observable<User>;
+  currentRole: string | null = null;
   private destroy$ = new Subject<void>();
 
   navbarItems = [
-    { icon: 'bell', path: '' },
+    // { icon: 'bell', path: '' },
     { icon: 'user', path: '/account' },
   ];
 
@@ -88,6 +89,9 @@ export class ContentLayoutComponent {
           this.userAvt = response.avatar || localStorage.getItem('avatar');
           this.userNameTag =
             response.nameTag || localStorage.getItem('nameTag');
+          this.currentRole = this.store.selectSnapshot(
+            UserState.currentRole,
+          ).name;
         }, 1000);
       });
 
