@@ -52,7 +52,7 @@ export class ContentLayoutComponent {
   private destroy$ = new Subject<void>();
 
   navbarItems = [
-    { icon: 'bell', path: '' },
+    // { icon: 'bell', path: '' },
     { icon: 'user', path: '/account' },
   ];
 
@@ -92,7 +92,6 @@ export class ContentLayoutComponent {
           this.currentRole = this.store.selectSnapshot(
             UserState.currentRole,
           ).name;
-          console.log(this.currentRole);
         }, 1000);
       });
 

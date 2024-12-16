@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
+import Iconify from '@iconify/tailwind';
+import { BlogCardComponent } from '../../UI/Blog/blog-card/blog-card.component';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { Blog, BlogState } from '../../store/blog/blog.state';
 import { ReportState } from '../../store/report/reports.state';
 import { ReportAction } from '../../store/report/reports.action';
+import { BlogAction } from '../../store/blog/blog.action';
 import { ReportCardComponent } from '../../UI/report-card/report-card.component';
 
 @Component({
-  selector: 'app-report-user',
+  selector: 'admin-report-blog',
   standalone: true,
   imports: [CommonModule, ReportCardComponent],
-  templateUrl: './report-user.component.html',
-  styleUrl: './report-user.component.scss',
+  templateUrl: './admin-report-blog.component.html',
+  styleUrl: './admin-management.component.scss',
 })
-export class ReportUserComponent {
+export class AdminReportBlogComponent {
   pendingReports$: Observable<any[]>;
   cancelReports$: Observable<any[]>;
   deleteReports$: Observable<any[]>;
@@ -49,21 +53,21 @@ export class ReportUserComponent {
       new ReportAction.GetReportByStatus(
         'PENDING',
         this.pendingCurrentPage,
-        'USER',
+        'BLOG',
       ),
     );
     this.store.dispatch(
       new ReportAction.GetReportByStatus(
         'CANCEL',
         this.cancelCurrentPage,
-        'USER',
+        'BLOG',
       ),
     );
     this.store.dispatch(
       new ReportAction.GetReportByStatus(
         'DELETE',
         this.deleteCurrentPage,
-        'USER',
+        'BLOG',
       ),
     );
   }
@@ -73,19 +77,19 @@ export class ReportUserComponent {
       case 'pending':
         this.pendingCurrentPage = page;
         this.store.dispatch(
-          new ReportAction.GetReportByStatus('PENDING', page, 'USER'),
+          new ReportAction.GetReportByStatus('PENDING', page, 'BLOG'),
         );
         break;
       case 'cancel':
         this.cancelCurrentPage = page;
         this.store.dispatch(
-          new ReportAction.GetReportByStatus('CANCEL', page, 'USER'),
+          new ReportAction.GetReportByStatus('CANCEL', page, 'BLOG'),
         );
         break;
       case 'delete':
         this.deleteCurrentPage = page;
         this.store.dispatch(
-          new ReportAction.GetReportByStatus('DELETE', page, 'USER'),
+          new ReportAction.GetReportByStatus('DELETE', page, 'BLOG'),
         );
         break;
     }
@@ -96,7 +100,7 @@ export class ReportUserComponent {
       new ReportAction.UpdateReport(
         event.reportId,
         event.action,
-        'USER',
+        'BLOG',
         event.reportStatus,
       ),
     );

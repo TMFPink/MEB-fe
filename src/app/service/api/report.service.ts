@@ -20,7 +20,18 @@ export class ReportService {
 
   getReport(page: number, size: number): Observable<any> {
     return this.http.get(
-      `${this.apiUrl}?page=${page}&size=${size}`,
+      `${this.apiUrl}?page=${page}&size=${8}`,
+      this.httpOptions,
+    );
+  }
+
+  getReportByStatus(
+    reportStatus: string,
+    page: number,
+    reportType: string,
+  ): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}?page=${page}&size=${8}&reportStatus=${reportStatus}&reportType=${reportType}`,
       this.httpOptions,
     );
   }
@@ -33,11 +44,7 @@ export class ReportService {
     );
   }
 
-  createReport(blogId: any, reportForm: any): Observable<any> {
-    return this.http.post(
-      `${this.apiUrl}/${blogId}`,
-      reportForm,
-      this.httpOptions,
-    );
+  createReport(payload: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, payload, this.httpOptions);
   }
 }

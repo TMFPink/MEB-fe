@@ -21,12 +21,12 @@
   <div class="grid grid-cols-2 gap-8">
     <!-- Tags List -->
     <div class="bg-white border-black border rounded-xl p-6 shadow-lg">
-      <h2 class="text-2xl font-bold mb-4 text-[var(--font-color)]">Tags</h2>
+      <h2 class="text-2xl font-bold mb-4 text-[var(--font-color)] flex justify-center items-center uppercase">Tags</h2>
       <div class="space-y-4">
-        <div *ngFor="let tag of tagList" class="bg-white border-[var(--main-theme)] border-2 p-4 rounded-lg">
-          <div class="flex justify-between items-center">
+        <div *ngFor="let tag of tagList" class="bg-[var(--main-theme)]   p-4 rounded-lg">
+          <div class="flex justify-center items-center">
             <div>
-              <h3 class="font-semibold text-lg">{{tag.name}}</h3>
+              <h3 class="font-semibold text-lg text-white">{{tag.name}}</h3>
             </div>
             
           </div>
@@ -39,12 +39,12 @@
 
     <!-- Categories List -->
     <div class="bg-white border-black border rounded-xl p-6 shadow-lg">
-      <h2 class="text-2xl font-bold mb-4 text-[var(--font-color)]">Categories</h2>
+      <h2 class="text-2xl font-bold mb-4 text-[var(--font-color)] flex justify-center items-center uppercase">Categories</h2>
       <div class="space-y-4">
-        <div *ngFor="let category of categoryList" class="bg-white border-[var(--main-theme)] border-2 p-4 rounded-lg">
-          <div class="flex justify-between items-center">
+        <div *ngFor="let category of categoryList" class="bg-[var(--main-theme)]   p-4 rounded-lg">
+          <div class="flex justify-center items-center">
             <div>
-              <h3 class="font-semibold text-lg">{{category.title}}</h3>
+              <h3 class="font-semibold text-lg text-white">{{category.title}}</h3>
             </div>
             
           </div>

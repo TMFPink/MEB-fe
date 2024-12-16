@@ -89,7 +89,11 @@
     background-color: var(--font-color) !important;; 
     height:40px;
     border-radius: 12px !important; 
-    color:white !important
+    // color:white !important;
+    color:black !important;
+    ::placeholder{
+      color:white !important
+    }
   }
   .ant-select-selection-search{
     color:white !important
@@ -97,13 +101,22 @@
   nz-select::placeholder { 
     color: red !important;
   }
+  .ant-select{
+    ::placeholder{
+      color: white !important;
+    }
+  }
   .ant-select-close-icon, 
   .anticon-close-circle{
     color:white !important
   }
   .ant-select-clear{
     background-color: transparent !important;
-}
+  }
+  .ant-select-selection-search-input{
+    font-size: large !important;
+    color:white !important
+  }
 }
 .ant-select-multiple .ant-select-selection-item-remove{
   color:white !important;
@@ -130,6 +143,7 @@
     border-radius: 12px !important; 
     color:white !important;
     // font-weight: bold;
+    
     
   }
   .ant-select-selection-item{

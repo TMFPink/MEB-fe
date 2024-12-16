@@ -32,11 +32,17 @@
         >
           FOLLOWED
         </button>
-        <!-- <button
-          class="shine-button px-4 py-2 bg-[var(--main-theme)] text-white rounded-xl"
+        <button
+          class="bg-white text-red-400 px-4 py-1 rounded-xl font-bold border border-red-400 hover:bg-red-400 hover:text-white"
         >
-          MESSAGE
-        </button> -->
+          <span
+            nz-icon
+            nzType="flag"
+            nzTheme="outline"
+            class="text-3xl cursor-pointer"
+            (click)="openReport()"
+          ></span>
+        </button>
       </div>
       <div *ngIf="isProfile" class="ml-[20%] gap-x-4 flex font-bold">
         <button
@@ -45,11 +51,11 @@
         >
           EDIT PROFILE
         </button>
-        <button
+        <!-- <button
           class="shine-button px-4 py-2 bg-[var(--main-theme)] text-white rounded-xl"
         >
           INSIGHT
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -85,3 +91,23 @@
     </div>
   </div>
 </div>
+<nz-modal
+        [(nzVisible)]="isModalVisible"
+        [nzTitle]="TitleModal"
+        nzClosable="true"
+        nzOkText="Create"
+        (nzOnOk)="onReport()"
+        (nzOnCancel)="handleCancel()"
+        [nzFooter]="footerTemplate"
+      >
+        <ng-container *nzModalContent>
+          <app-report-blog [form]="reportForm" ></app-report-blog>
+        </ng-container>
+      </nz-modal>
+<ng-template #TitleModal>
+  <div class="text-3xl font-bold text-[var(--font-color)]">Report User</div>
+</ng-template>
+<ng-template #footerTemplate>
+  <!-- <button nz-button nzType="default" (click)="handleCancel()">Cancel</button> -->
+  <button class="border border-black p-2 rounded" nz-button nzType="primary" (click)="onReport()">Report</button>
+</ng-template>

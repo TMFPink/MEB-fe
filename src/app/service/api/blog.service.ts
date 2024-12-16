@@ -9,7 +9,7 @@ export class BlogService {
   private apiUrl: string;
   private userApiUrl: string;
   private httpOptions = {
-    withCredentials: true
+    withCredentials: true,
   };
 
   constructor(
@@ -32,27 +32,40 @@ export class BlogService {
     return this.http.put(`${this.apiUrl}/${id}`, blog, this.httpOptions);
   }
 
+  deleteBlog(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
   getBlogById(id: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`, this.httpOptions);
   }
 
   getBlogByUser(id: any): Observable<any> {
-    return this.http.get(`${this.userApiUrl}/users/${id}/blogs`, this.httpOptions);
+    return this.http.get(
+      `${this.userApiUrl}/users/${id}/blogs`,
+      this.httpOptions,
+    );
   }
-  
+
   getBlogVote(blogId: any): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${blogId}/user/is-voted`, this.httpOptions);
+    return this.http.get(
+      `${this.apiUrl}/${blogId}/user/is-voted`,
+      this.httpOptions,
+    );
   }
 
   voteBlog(blogId: any, voteType: any): Observable<any> {
     return this.http.post(
       `${this.apiUrl}/${blogId}/user/votes?voteType=${voteType}`,
       {},
-      this.httpOptions
+      this.httpOptions,
     );
   }
 
   unvoteBlog(blogId: any): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${blogId}/user/votes`, this.httpOptions); 
+    return this.http.delete(
+      `${this.apiUrl}/${blogId}/user/votes`,
+      this.httpOptions,
+    );
   }
 }

@@ -99,7 +99,8 @@ export class BlogDetailComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.reportForm = this.fb.group({
-      reportType: ['', Validators.required],
+      reportType: ['BLOG', Validators.required],
+      reportReason: ['', Validators.required],
       description: ['', Validators.required],
     });
 
@@ -269,9 +270,15 @@ export class BlogDetailComponent implements OnInit {
   }
   onReport(): void {
     if (!this.CheckLogin()) return;
-    this.store.dispatch(
-      new ReportAction.CreateReport(this.blogId, this.reportForm.value),
-    );
+
+    const payload = {
+      blogId: this.blogId,
+      reportReason: this.reportForm.value.reportReason,
+      reportType: this.reportForm.value.reportType,
+      description: this.reportForm.value.description,
+    };
+
+    this.store.dispatch(new ReportAction.CreateReport(payload));
   }
 
   updateComment(commentId: string): void {

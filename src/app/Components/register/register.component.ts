@@ -143,9 +143,7 @@ export class RegisterComponent {
         });
         formData.append('user', userPayload);
         formData.append('file', avatarFile);
-        console.log(
-          "asd"
-        )
+        console.log('asd');
 
         // Dispatch the FormData payload
         this._store.dispatch(new AuthAction.Register(formData));
@@ -159,6 +157,5 @@ export class RegisterComponent {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
-    console.log('Register component destroyed');
   }
 }

@@ -22,7 +22,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 })
 export class ReportBlogComponent {
   @Input() form = new FormGroup<any>({});
-  reportType = [
+  reportReason = [
     { label: 'Spam', value: 'SPAM' },
     { label: 'Offensive', value: 'OFFENSIVE' },
     { label: 'Incorrect', value: 'INCORRECT' },

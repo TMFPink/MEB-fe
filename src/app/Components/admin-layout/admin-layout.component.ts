@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { AdminManagementComponent } from '../report-blog/report-blog.component';
 
 @Component({
   selector: 'app-admin-layout',

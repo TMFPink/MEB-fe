@@ -11,16 +11,30 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UserAction } from '../../store/user/user.action';
 import { UserStats, UserStatsAction, UserStatsState } from '../../store';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReportAction } from '../../store/report/reports.action';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { ReportBlogComponent } from '../../UI/report-blog/report-blog.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, BlogCardComponent, SideBarComponent, RouterLink],
+  imports: [
+    CommonModule,
+    BlogCardComponent,
+    SideBarComponent,
+    RouterLink,
+    NzIconModule,
+    NzModalModule,
+    ReportBlogComponent,
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
   // user$: Observable<any>;
+  reportForm: FormGroup;
   userId: string = '';
   userName: string | null = null;
   userBlog$: Observable<Blog[]>;
@@ -37,11 +51,18 @@ export class ProfileComponent implements OnInit {
   following: number = 0;
   totalUpvote: number = 0;
   posts: number = 0;
+  isModalVisible = false;
   constructor(
     private _store: Store,
     private _route: ActivatedRoute,
     private _msg: NzMessageService,
+    private _fb: FormBuilder,
   ) {
+    this.reportForm = this._fb.group({
+      reportType: ['USER', Validators.required],
+      reportReason: ['', Validators.required],
+      description: ['', Validators.required],
+    });
     this.userProfile$ = this._store.select(UserState.userProfile);
     this.userBlog$ = this._store.select(BlogState.userBlog);
     this.user$ = this._store.select(UserState.userProfile);
@@ -113,5 +134,22 @@ export class ProfileComponent implements OnInit {
       return false;
     }
     return true;
+  }
+  openReport() {
+    this.isModalVisible = true;
+  }
+  handleCancel(): void {
+    this.isModalVisible = false;
+  }
+  onReport(): void {
+    if (!this.CheckLogin()) return;
+    const payload = {
+      userId: this.userBlogId,
+      reportReason: this.reportForm.value.reportReason,
+      reportType: this.reportForm.value.reportType,
+      description: this.reportForm.value.description,
+    };
+
+    this._store.dispatch(new ReportAction.CreateReport(payload));
   }
 }

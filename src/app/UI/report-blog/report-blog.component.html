@@ -3,12 +3,12 @@
     <nz-form-control>
       <nz-form-item>
         <nz-select
-        nzPlaceHolder="Report's type"
+        [nzPlaceHolder]="reportPlaceholder"
         nzAllowClear="true"
-        formControlName="reportType"
+        formControlName="reportReason"
         >
           <nz-option 
-            *ngFor="let item of reportType"
+            *ngFor="let item of reportReason"
             [nzLabel]="item.label"
             [nzValue]="item.value"
           ></nz-option>
@@ -21,7 +21,7 @@
         <textarea
           formControlName="description"
           placeholder="Report's description"
-          class="text-white text-2xl w-full h-32 p-2 border rounded-xl mb-1 focus:outline-none bg-[var(--font-color)] box-border"
+          class="text-white text-lg w-full h-32 p-2 border rounded-xl mb-1 focus:outline-none bg-[var(--font-color)] box-border"
           maxlength="255"
         ></textarea>
       
@@ -29,6 +29,12 @@
     </nz-form-control>
   </form>
 </div>
+
+<ng-template #reportPlaceholder>
+  <div class="text-white text-lg">
+    Report's Type
+  </div>
+</ng-template>
 
   
   <!-- <div class="flex flex-col">
