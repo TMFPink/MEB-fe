@@ -20,7 +20,7 @@ import { DateFormatter } from '../../utils/formatDate';
 import { environment } from '../../../environments/environment';
 import { UserAction } from '../../store/user/user.action';
 import { User, UserState } from '../../store/user/user.state';
-import { Tags } from '../../store/tags/tags.state';
+import { Tags, TagsState } from '../../store/tags/tags.state';
 import { Comment, CommentsState } from '../../store/comments/comments.state';
 import { CommentsAction } from '../../store/comments/comments.action';
 import {
@@ -34,6 +34,7 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { ReportBlogComponent } from '../../UI/report-blog/report-blog.component';
 import { ReportAction } from '../../store/report/reports.action';
 import { ReportState } from '../../store/report/reports.state';
+import { TagsAction } from '../../store/tags/tags.actions';
 @Component({
   selector: 'app-blog-detail',
   standalone: true,
@@ -85,6 +86,7 @@ export class BlogDetailComponent implements OnInit {
   reportStatus$: Observable<boolean>;
   userId: string = '';
   isModalVisible = false;
+  isLoading: boolean = true;
 
   @Input() blogId: string = '';
   @Input() isPopup: boolean = false;
@@ -119,46 +121,63 @@ export class BlogDetailComponent implements OnInit {
     this.blog$ = this.store.select(BlogState.blog);
     this.isFollow$ = this.store.select(UserState.isFollow);
     this.isBookmark$ = this.store.select(UserState.isBookmark);
-    this.store.select(BlogState.blogs).subscribe((response) => {
-      this.suggestedBlogs = response;
-    });
     this.comments$ = this.store.select(CommentsState.comments);
     this.voteStatus$ = this.store.select(BlogState.voteStatus);
     this.userBlogProfile$ = this.store.select(UserState.userBlog);
 
     this.blog$.subscribe((response) => {
-      this.blogId = response?.id ?? '';
-      this.blogContent = response?.content;
-      this.userBlogName = response?.user?.username ?? '';
-      this.userNameTag = response?.user?.nameTag ?? '';
-      this.userBlogid = response?.user?.id ?? '';
-      this.sanitizedContent = this.sanitizeContent(String(this.blogContent));
-      this.blogDate = this.formatDate.convertDate(String(response?.createdAt));
-      this.blogTags = response?.tags ?? [];
-      this.upVotes = response?.votes?.upVote ?? 0;
-      this.downVotes = response?.votes?.downVote ?? 0;
-      if (this.userNameTag) {
-        const payload = {
-          nameTag: this.userNameTag,
-          type: 'blog',
-        };
-        this.store.dispatch(new UserAction.getUserbyNameTag(payload));
-      }
+      if (response) {
+        this.blogId = response?.id ?? '';
+        this.blogContent = response?.content;
+        this.userBlogName = response?.user?.username ?? '';
+        this.userNameTag = response?.user?.nameTag ?? '';
+        this.userBlogid = response?.user?.id ?? '';
+        this.sanitizedContent = this.sanitizeContent(String(this.blogContent));
+        this.blogDate = this.formatDate.convertDate(
+          String(response?.createdAt),
+        );
+        this.blogTags = response?.tags ?? [];
+        this.upVotes = response?.votes?.upVote ?? 0;
+        this.downVotes = response?.votes?.downVote ?? 0;
+        if (this.blogTags.length > 0) {
+          const firstTagid = this.blogTags[0].id;
+          const payload = {
+            tagid: firstTagid,
+          };
+          this.store.dispatch(new TagsAction.GetBlogByTag(payload));
+        }
 
-      if (this.isLogin) {
-        if (this.userId !== 'undefiend' && this.blogId !== '') {
-          this.store.dispatch(new UserAction.isFollow(this.userBlogid));
-          this.store.dispatch(new UserAction.isBookmark(this.blogId));
-          this.store.dispatch(new BlogAction.GetVoteByBlog(this.blogId));
-          if (this.userBlogid === localStorage.getItem('userId')) {
-            this.isSelf = true;
-          } else {
-            this.isSelf = false;
+        if (this.userNameTag) {
+          const payload = {
+            nameTag: this.userNameTag,
+            type: 'blog',
+          };
+          this.store.dispatch(new UserAction.getUserbyNameTag(payload));
+        }
+
+        if (this.isLogin) {
+          if (this.userId !== 'undefiend' && this.blogId !== '') {
+            this.store.dispatch(new UserAction.isFollow(this.userBlogid));
+            this.store.dispatch(new UserAction.isBookmark(this.blogId));
+            this.store.dispatch(new BlogAction.GetVoteByBlog(this.blogId));
+            if (this.userBlogid === localStorage.getItem('userId')) {
+              this.isSelf = true;
+            } else {
+              this.isSelf = false;
+            }
           }
         }
+        if (this.blogId) {
+          this.store.select(TagsState.getBlogByTag).subscribe((response) => {
+            this.suggestedBlogs = [];
+            response.forEach((blog) => {
+              if (blog.id !== this.blogId) this.suggestedBlogs.push(blog);
+            });
+          });
+          this.store.dispatch(new CommentsAction.GetComment(this.blogId));
+        }
+        this.isLoading = false;
       }
-      if (this.blogId)
-        this.store.dispatch(new CommentsAction.GetComment(this.blogId));
     });
     this.isFollow$.subscribe((response) => {
       this.isFollowing = response;

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { BlogCardComponent } from '../../../UI/Blog/blog-card/blog-card.component';
 import { BlogPopupComponent } from '../../../UI/Blog/blog-popup/blog-popup.component';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Blog } from '../../../store/blog/blog.state';
 import { BlogAction } from '../../../store/blog/blog.action';
 import { UserState } from '../../../store/user/user.state';
@@ -24,7 +24,10 @@ export class HomepageComponent implements OnInit {
   blog$!: Observable<Blog[]>;
   loading: boolean = true;
   podium: any[] = [];
-  constructor(private store: Store) {
+  constructor(
+    private store: Store,
+    private router: Router,
+  ) {
     this.insight$ = this.store.select(UserState.insight);
     this.store.dispatch(new UserAction.userInsight());
 
@@ -44,5 +47,9 @@ export class HomepageComponent implements OnInit {
       this.loading = false;
     });
     this.store.dispatch(new BlogAction.GetBlogs());
+  }
+
+  navigateUser(nameTag: string) {
+    this.router.navigate(['/user', nameTag]);
   }
 }
